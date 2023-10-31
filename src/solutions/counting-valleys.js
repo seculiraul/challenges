@@ -1,40 +1,49 @@
+// An avid hiker keeps meticulous records of their hikes. During the last hike that took exactly  steps, for every step it was noted if it was an uphill, , or a downhill,  step. Hikes always start and end at sea level, and each step up or down represents a  unit change in altitude. We define the following terms:
+
+// A mountain is a sequence of consecutive steps above sea level, starting with a step up from sea level and ending with a step down to sea level.
+// A valley is a sequence of consecutive steps below sea level, starting with a step down from sea level and ending with a step up to sea level.
+// Given the sequence of up and down steps during a hike, find and print the number of valleys walked through.
+
+// Example
+
+// The hiker first enters a valley  units deep. Then they climb out and up onto a mountain  units high. Finally, the hiker returns to sea level and ends the hike.
+
+// Function Description
+
+// Complete the countingValleys function in the editor below.
+
+// countingValleys has the following parameter(s):
+
+// int steps: the number of steps on the hike
+// string path: a string describing the path
+// Returns
+
+// int: the number of valleys traversed
+// Input Format
+
+// The first line contains an integer , the number of steps in the hike.
+// The second line contains a single string , of  characters that describe the path.
+
+// Constraints
+
+// Sample Input
+
+// 8
+// UDDDUDUU
+// Sample Output
+
+// 1
+
+// SOLUTION
+
 function countingValleys(steps, path) {
-  // let addToArray = false
-  // let itv = []
-  // const all = []
-  // let start = 0
-
-  let level = 0
-  const arr = path.split('')
-  const nrArr = []
-  let res = 0
-
-  for (let i = 0; i < arr.length; i++) {
-    const acc = arr[i] === 'U' ? 1 : -1
-    level += acc
-    nrArr.push(level)
-  }
-  const levels = [0, ...nrArr]
-  console.log(levels)
-  for (let i = 0; i < levels.length; i++) {
-    console.log('i=', i)
-    if (levels[i] === 0) {
-      const newArr = levels.slice(i + 1, levels.length)
-      console.log('newArr', newArr)
-      const nextIndex = newArr.indexOf(0)
-      console.log('nextIndex', nextIndex)
-      const finalArr = levels.slice(i + 1, nextIndex + 1)
-      console.log('final', finalArr)
-      if (finalArr.includes(-2)) {
-        res += 1
-      }
-    }
-    console.log('--------------------------------------------------------')
-  }
-
-  return res
+  return path.split('').reduce(
+    (acc, el) => {
+      return [
+        acc[0] + (el === 'U' && acc[1] === -1 ? 1 : 0),
+        acc[1] + (el === 'U' ? 1 : -1),
+      ]
+    },
+    [0, 0]
+  )[0]
 }
-
-const x = countingValleys(12, 'DDUUDDUDUUUD')
-
-console.log('result', x)
