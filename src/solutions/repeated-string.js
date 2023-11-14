@@ -21,3 +21,18 @@
 // The second line contains an integer, .
 
 // SOLUTION
+
+// check how many occurences in inital s
+// multiply by Math.floor(n / s.length)
+// get mod of n/ s.length -> take the first mod characters and count how many a
+// add to the multiplied result
+
+function repeatedString(s, n) {
+  // Write your code here
+  const getACharacter = (str) => str.split('').filter((el) => el === 'a').length
+
+  return (
+    getACharacter(s) * Math.floor(n / s.length) +
+    getACharacter(s.slice(0, n % s.length))
+  )
+}
